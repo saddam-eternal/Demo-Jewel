@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_form_inherit_cus" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                <field name="available_product_ids" invisible="1"/>
+                <field name="product_name" string="Main Product Name" domain="[('id', 'in', available_product_ids), ('main_product', '=', True)]" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']//tree//field[@name='price_unit']" position="after">
+                <field name="product_qty_two" string="Quantity 2" disabled="1"/>
+                <field name="uom_two" string="UoM 2"/>
+                <field name="gross_weight" string="Gross Weight (Gram)"/>
+                <field name="purity_ratio" string="Purity"/>
+            </xpath>
+         
+            <xpath expr="//page[@name='order_lines']//tree//field[@name='name']" position="before">
+                <field name="ref_no" string="Ref No" required="1" options="{'no_create': True, 'no_open': True}"/>
+                <field name="piece" string="Piece"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
