@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="custom_purchase_order_inherit" model="ir.ui.view">
+        <field name="name">Purchase Order Inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <label for="gross_weight_btn" string="Gross Weight Total Calculation in Purchase Order Line"/>
+                <button string="Gross Weight" name="gross_weight_btn" type="object" class="oe_highlight"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='price_unit']" position="before">
+                <field name="product_qty_two" string="Quantity 2" disabled="1"/>
+                <field name="uom_two" string="UoM 2"/>
+                <field name="gross_weight" string="Gross Weight (Gram)"/>
+                <field name="purity_ratio" string="Purity"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="ref_no" string="Ref No" required="1" options="{'no_create': True, 'no_open': True}"/>
+                <field name="piece" string="Piece"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="on_change">_onchange_product_id(product_id)</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='product_qty']" position="attributes">
+                <attribute name="on_change">_onchange_product_qty(product_id)</attribute>
+            </xpath>
+            
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="on_change">_onchange_product(product_id)</attribute>
+            </xpath>
+        
+        </field>
+    </record>
+</odoo>
